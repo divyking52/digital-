@@ -1,0 +1,3373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Digital Auction Private Limited — India's trusted SARFAESI-compliant e-Auction platform for Banks, NBFCs & Financial Institutions. Based in Jabalpur, Madhya Pradesh." />
+  <title>Digital Auction Private Limited | e-Auction Platform for Banks & NBFCs</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+
+  <style>
+    /* ============================================================
+       DIGITAL AUCTION PVT. LTD. — Design System
+       Palette: Navy #0a1f44 · Gold #d4af37 · White · Glass
+       ============================================================ */
+    :root {
+      --navy: #0a1f44;
+      --navy-deep: #061428;
+      --navy-mid: #0f2d5c;
+      --navy-light: #163a72;
+      --gold: #d4af37;
+      --gold-soft: #e8c96a;
+      --gold-dim: rgba(212, 175, 55, 0.15);
+      --white: #ffffff;
+      --off-white: #f4f6fa;
+      --muted: rgba(255, 255, 255, 0.65);
+      --muted-2: rgba(255, 255, 255, 0.4);
+      --glass: rgba(255, 255, 255, 0.06);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --glass-strong: rgba(255, 255, 255, 0.1);
+      --success: #2ecc71;
+      --warning: #f39c12;
+      --danger: #e74c3c;
+      --info: #3498db;
+      --font-sans: "DM Sans", system-ui, sans-serif;
+      --font-display: "Instrument Serif", Georgia, serif;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --nav-h: 72px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --shadow-gold: 0 0 40px rgba(212, 175, 55, 0.25);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: auto; /* Lenis handles smooth scroll */
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--navy-deep);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      cursor: none; /* custom cursor on desktop */
+    }
+
+    /* ---------- Ambient page background (particles + SVG) ---------- */
+    .bg-atmosphere {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 90% 60% at 10% -10%, rgba(22, 58, 114, 0.45), transparent 55%),
+        radial-gradient(ellipse 70% 50% at 95% 30%, rgba(212, 175, 55, 0.07), transparent 50%),
+        radial-gradient(ellipse 60% 40% at 50% 100%, rgba(15, 45, 92, 0.5), transparent 55%),
+        var(--navy-deep);
+    }
+    #bg-particles {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.7;
+    }
+    .bg-svg-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.55;
+    }
+    .bg-svg-layer .orbit {
+      fill: none;
+      stroke: rgba(212, 175, 55, 0.12);
+      stroke-width: 1;
+    }
+    .bg-svg-layer .orbit-dashed {
+      fill: none;
+      stroke: rgba(212, 175, 55, 0.1);
+      stroke-width: 1;
+      stroke-dasharray: 6 10;
+    }
+    .bg-svg-layer .node {
+      fill: rgba(212, 175, 55, 0.2);
+      stroke: rgba(212, 175, 55, 0.35);
+      stroke-width: 1;
+    }
+    .bg-svg-layer .hex {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.04);
+      stroke-width: 1;
+    }
+    .bg-svg-layer .grid-line {
+      stroke: rgba(255, 255, 255, 0.03);
+      stroke-width: 1;
+    }
+    .bg-svg-layer .glow-ring {
+      fill: none;
+      stroke: rgba(212, 175, 55, 0.08);
+      stroke-width: 40;
+    }
+    .bg-float {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.35;
+      animation: bg-drift 22s ease-in-out infinite alternate;
+    }
+    .bg-float.f1 {
+      width: 420px; height: 420px;
+      top: 8%; left: -8%;
+      background: radial-gradient(circle, rgba(22, 58, 114, 0.8), transparent 70%);
+    }
+    .bg-float.f2 {
+      width: 360px; height: 360px;
+      top: 45%; right: -10%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.18), transparent 70%);
+      animation-delay: -7s;
+      animation-duration: 28s;
+    }
+    .bg-float.f3 {
+      width: 480px; height: 480px;
+      bottom: -10%; left: 30%;
+      background: radial-gradient(circle, rgba(15, 45, 92, 0.7), transparent 70%);
+      animation-delay: -14s;
+      animation-duration: 32s;
+    }
+    @keyframes bg-drift {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, -30px) scale(1.08); }
+    }
+    .bg-svg-spin {
+      transform-origin: center;
+      animation: bg-spin 80s linear infinite;
+    }
+    .bg-svg-spin-rev {
+      transform-origin: center;
+      animation: bg-spin 120s linear infinite reverse;
+    }
+    @keyframes bg-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    main, .footer {
+      position: relative;
+      z-index: 1;
+    }
+    /* Keep fixed UI above atmosphere; do not override their position */
+
+    @media (hover: none), (pointer: coarse) {
+      body { cursor: auto; }
+      .cursor, .cursor-follower { display: none !important; }
+    }
+
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select {
+      font-family: inherit;
+      border: none;
+      outline: none;
+      background: none;
+      color: inherit;
+    }
+    ul { list-style: none; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); border: 0;
+    }
+
+    /* ---------- Custom Cursor ---------- */
+    .cursor {
+      position: fixed; top: 0; left: 0;
+      width: 8px; height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: difference;
+      transition: width 0.2s, height 0.2s, background 0.2s;
+    }
+    .cursor-follower {
+      position: fixed; top: 0; left: 0;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s, border-color 0.3s;
+    }
+    .cursor.hover, .cursor-follower.hover {
+      width: 48px; height: 48px;
+    }
+    .cursor.hover { background: transparent; border: 2px solid var(--gold); width: 20px; height: 20px; }
+
+    /* ---------- Scroll Progress ---------- */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0;
+      height: 3px; width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-soft));
+      z-index: 9998;
+      transform-origin: left;
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+    }
+
+    /* ---------- Preloader ---------- */
+    .preloader {
+      position: fixed; inset: 0;
+      background: var(--navy-deep);
+      z-index: 10001;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1.5rem;
+    }
+    .preloader-logo {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+    .preloader-logo span { color: var(--gold); }
+    .preloader-bar-wrap {
+      width: min(280px, 70vw);
+      height: 2px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .preloader-bar {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-soft));
+    }
+    .preloader-pct {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ---------- Layout Helpers ---------- */
+    .container {
+      width: min(1200px, 92%);
+      margin-inline: auto;
+    }
+    .section {
+      padding: clamp(4rem, 10vw, 7rem) 0;
+      position: relative;
+    }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    .section-label::before {
+      content: "";
+      width: 24px; height: 1px;
+      background: var(--gold);
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    .section-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .section-sub {
+      font-size: clamp(1rem, 2vw, 1.125rem);
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+    .reveal { opacity: 0; transform: translateY(40px); }
+    .reveal.is-visible { opacity: 1; transform: none; transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.9rem 1.75rem;
+      border-radius: 999px;
+      font-size: 0.9rem; font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.35s var(--ease), box-shadow 0.35s, background 0.3s, color 0.3s, border-color 0.3s;
+      will-change: transform;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy-deep);
+      box-shadow: 0 4px 24px rgba(212, 175, 55, 0.35);
+    }
+    .btn-primary:hover {
+      background: var(--gold-soft);
+      box-shadow: var(--shadow-gold);
+      transform: translateY(-2px);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(8px);
+    }
+    .btn-ghost:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+    .btn-group { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+    /* ---------- Glass Card ---------- */
+    .glass {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: var(--radius);
+    }
+
+    /* ============================================================
+       NAVBAR
+       ============================================================ */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 9000;
+      display: flex; align-items: center;
+      transition: background 0.4s, backdrop-filter 0.4s, border-color 0.4s, box-shadow 0.4s;
+      border-bottom: 1px solid transparent;
+    }
+    .navbar.scrolled {
+      background: rgba(6, 20, 40, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom-color: var(--glass-border);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      width: min(1200px, 92%);
+      margin-inline: auto;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .nav-logo .mark {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+      border-radius: 8px;
+      display: grid; place-items: center;
+      color: var(--navy-deep);
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 0.75rem;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links {
+      display: flex; align-items: center; gap: 2rem;
+    }
+    .nav-links a {
+      font-size: 0.875rem; font-weight: 500;
+      color: var(--muted);
+      transition: color 0.25s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute; left: 0; bottom: -4px;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.3s var(--ease);
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta { padding: 0.6rem 1.25rem; font-size: 0.8rem; }
+    .nav-toggle {
+      display: none;
+      flex-direction: column; gap: 5px;
+      width: 28px; padding: 4px 0;
+      cursor: pointer;
+    }
+    .nav-toggle span {
+      display: block; height: 2px; width: 100%;
+      background: var(--white);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 900px) {
+      .nav-toggle { display: flex; }
+      .nav-links {
+        position: fixed; top: var(--nav-h); left: 0; right: 0;
+        background: rgba(6, 20, 40, 0.97);
+        backdrop-filter: blur(20px);
+        flex-direction: column; gap: 0;
+        padding: 1.5rem;
+        transform: translateY(-120%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.4s var(--ease), opacity 0.4s;
+        border-bottom: 1px solid var(--glass-border);
+      }
+      .nav-links.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .nav-links a {
+        padding: 1rem 0;
+        width: 100%;
+        border-bottom: 1px solid var(--glass-border);
+        font-size: 1rem;
+      }
+      .nav-links .nav-cta { margin-top: 1rem; width: 100%; text-align: center; }
+    }
+
+    /* ============================================================
+       1. HERO
+       ============================================================ */
+    .hero {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex; align-items: center;
+      position: relative;
+      padding-top: var(--nav-h);
+      overflow: hidden;
+    }
+    #hero-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+    }
+    .hero-photo {
+      position: absolute; inset: 0;
+      background:
+        url("https://cdn.storebox.ai/media/49fbdd3d-a55c-45bc-bd16-46c5a404c34f/7872b49a-6849-4e39-898a-2bac006cecdb/hero-building.jpg") center 30% / cover no-repeat;
+      z-index: 0;
+      transform: scale(1.05);
+    }
+    .hero-gradient {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(105deg, rgba(6, 20, 40, 0.97) 0%, rgba(6, 20, 40, 0.88) 42%, rgba(10, 31, 68, 0.55) 100%),
+        radial-gradient(ellipse 80% 60% at 70% 20%, rgba(212, 175, 55, 0.12), transparent 50%),
+        linear-gradient(180deg, rgba(6,20,40,0.4) 0%, rgba(6,20,40,0.85) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      width: min(1200px, 92%);
+      margin-inline: auto;
+      padding: 4rem 0 5rem;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--gold-soft);
+      margin-bottom: 1.75rem;
+      backdrop-filter: blur(10px);
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse-dot 2s ease infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.5); }
+      50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(46, 204, 113, 0); }
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6.5vw, 4.5rem);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      max-width: 18ch;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title .line { display: block; overflow: hidden; }
+    .hero-title .line-inner { display: block; }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+    .hero-counters {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 2.5rem;
+      margin-top: 3.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--glass-border);
+      width: fit-content;
+    }
+    .counter-item .num {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .counter-item .label {
+      font-size: 0.8rem;
+      color: var(--muted-2);
+      letter-spacing: 0.04em;
+    }
+    @media (max-width: 600px) {
+      .hero-counters {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+        width: 100%;
+      }
+    }
+
+    /* ============================================================
+       2. TRUST BAR
+       ============================================================ */
+    .trust-bar {
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+      background: rgba(10, 31, 68, 0.35);
+      backdrop-filter: blur(8px);
+      overflow: hidden;
+    }
+    .trust-label {
+      text-align: center;
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted-2);
+      margin-bottom: 1.5rem;
+    }
+    .logo-marquee {
+      display: flex;
+      overflow: hidden;
+      mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    }
+    .logo-track {
+      display: flex; gap: 3rem;
+      animation: marquee 35s linear infinite;
+      width: max-content;
+    }
+    .logo-track:hover { animation-play-state: paused; }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .logo-item {
+      flex-shrink: 0;
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      background: var(--glass);
+      white-space: nowrap;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.55);
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .logo-item:hover { color: var(--gold); border-color: rgba(212,175,55,0.4); }
+    .logo-item .logo-icon {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, var(--navy-light), var(--navy-mid));
+      display: grid; place-items: center;
+      font-size: 0.65rem; font-weight: 700;
+      color: var(--gold);
+    }
+
+    /* ============================================================
+       3. ABOUT / WHY
+       ============================================================ */
+    .about {
+      overflow: hidden;
+    }
+    .about-pin-wrap {
+      position: relative;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "intro visual"
+        "points visual";
+      gap: 1.5rem 3.5rem;
+      align-items: start;
+      min-height: 0;
+    }
+    .about-intro { grid-area: intro; }
+    .about-visual { grid-area: visual; align-self: center; }
+    .about-grid > .feature-points { grid-area: points; margin-top: 0.5rem; }
+    .about-visual {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      margin-inline: auto;
+      aspect-ratio: 4 / 5;
+    }
+    .about-photo {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 28px 70px rgba(0,0,0,0.5);
+      z-index: 1;
+    }
+    .about-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .about-photo::after {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg, transparent 45%, rgba(6,20,40,0.88) 100%),
+        linear-gradient(90deg, rgba(6,20,40,0.15), transparent 40%);
+      pointer-events: none;
+    }
+    .about-photo-caption {
+      position: absolute;
+      left: 1.25rem; right: 1.25rem; bottom: 1.25rem;
+      z-index: 2;
+    }
+    .about-photo-caption strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      margin-bottom: 0.25rem;
+    }
+    .about-photo-caption span {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .about-orb,
+    .about-ring { display: none; }
+    .about-icon-float {
+      position: absolute;
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      background: rgba(10, 31, 68, 0.92);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+      display: grid; place-items: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+      z-index: 3;
+    }
+    .about-icon-float svg { width: 24px; height: 24px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+    .about-icon-float.i1 { top: 8%; left: -8%; }
+    .about-icon-float.i2 { top: 18%; right: -6%; }
+    .about-icon-float.i3 { bottom: 28%; left: -10%; }
+    .about-icon-float.i4 { bottom: 14%; right: -4%; }
+    .feature-points { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+    .feature-point {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1.1rem 1.15rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      opacity: 1;
+      transform: none;
+      transition: opacity 0.4s, border-color 0.4s, background 0.4s, transform 0.4s, box-shadow 0.3s;
+    }
+    .feature-point.active {
+      opacity: 1;
+      background: rgba(212, 175, 55, 0.08);
+      border-color: rgba(212, 175, 55, 0.35);
+      box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.1);
+    }
+    .feature-point .fp-num {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--gold);
+      line-height: 1;
+      min-width: 2ch;
+    }
+    .feature-point h4 {
+      font-size: 1.05rem; font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .feature-point p {
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+    @media (max-width: 1023px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "intro"
+          "visual"
+          "points";
+        gap: 1.25rem;
+        min-height: 0 !important;
+      }
+      .about-visual {
+        max-width: 100%;
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        margin-inline: 0;
+      }
+      .about-icon-float { display: none; }
+      .about-photo-caption strong { font-size: 1.1rem; }
+      .about-photo-caption span { font-size: 0.75rem; }
+
+      /* How — swipe rail (no vertical pin gap) */
+      .how-header { padding: 2.5rem 0 0.75rem; }
+      .how-pin { height: auto !important; min-height: 0 !important; }
+      .how-svg-stage { display: none; }
+      .how-track {
+        display: flex !important;
+        flex-direction: row !important;
+        width: auto !important;
+        max-width: 100%;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 0.75rem;
+        padding: 0.35rem 1rem 1rem;
+        transform: none !important;
+        scrollbar-width: none;
+      }
+      .how-track::-webkit-scrollbar { display: none; }
+      .how-panel {
+        width: min(300px, 78vw);
+        flex-shrink: 0;
+        padding: 0;
+        height: auto;
+        scroll-snap-align: start;
+      }
+      .how-card { padding: 1rem 0.9rem 1.1rem; }
+      .how-card-thumb { height: 72px; margin-bottom: 0.65rem; border-radius: 10px; }
+      .how-step-num { font-size: 2.25rem; top: 0.4rem; right: 0.6rem; }
+      .how-icon { width: 42px; height: 42px; margin-bottom: 0.55rem; border-radius: 12px; }
+      .how-icon svg { width: 20px; height: 20px; }
+      .how-card h3 { font-size: 1.15rem; margin-bottom: 0.35rem; }
+      .how-card p {
+        font-size: 0.8rem;
+        line-height: 1.45;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .how-progress { display: none; }
+      .how-rail-hint { display: block; }
+
+      .stats-pin { min-height: 0 !important; padding: 2.75rem 0; }
+
+      /* Kill leftover ScrollTrigger pin spacers */
+      .pin-spacer {
+        display: none !important;
+        height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+    }
+
+    /* ============================================================
+       4. HOW IT WORKS — Horizontal Scroll + SVG Journey
+       ============================================================ */
+    .how-section {
+      padding: 0;
+      overflow: hidden;
+      background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(212,175,55,0.06), transparent 60%);
+    }
+    .how-header {
+      padding: clamp(4rem, 8vw, 6rem) 0 1.5rem;
+      width: min(1200px, 92%);
+      margin-inline: auto;
+    }
+    .how-pin {
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      /* Clear fixed navbar when this section pins */
+      padding-top: calc(var(--nav-h) + 0.75rem);
+      box-sizing: border-box;
+    }
+    .how-svg-stage {
+      flex: 0 0 auto;
+      width: min(1100px, 94%);
+      margin: 0.25rem auto 0;
+      padding-top: 0.25rem;
+      position: relative;
+      z-index: 4;
+      pointer-events: none;
+    }
+    .how-journey-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      overflow: visible;
+      /* Extra top room so node halos / labels aren't clipped under nav */
+      margin-top: 0.35rem;
+    }
+    .how-journey-svg .path-track {
+      fill: none;
+      stroke: rgba(255,255,255,0.08);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .how-journey-svg .path-draw {
+      fill: none;
+      stroke: url(#goldGrad);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: none;
+    }
+    .how-journey-svg .node-ring {
+      fill: rgba(6, 20, 40, 0.9);
+      stroke: rgba(255,255,255,0.2);
+      stroke-width: 2;
+      transition: stroke 0.3s;
+    }
+    .how-journey-svg .node-ring.active {
+      stroke: var(--gold);
+      filter: drop-shadow(0 0 8px rgba(212,175,55,0.55));
+    }
+    .how-journey-svg .node-icon {
+      fill: none;
+      stroke: rgba(255,255,255,0.35);
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .how-journey-svg .node-icon path,
+    .how-journey-svg .node-icon circle,
+    .how-journey-svg .node-icon rect {
+      transition: stroke-dashoffset 0.45s ease, stroke 0.3s ease;
+    }
+    .how-journey-svg .node-group.active .node-icon {
+      stroke: var(--gold);
+    }
+    .how-journey-svg .node-label {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      fill: rgba(255,255,255,0.35);
+      letter-spacing: 0.04em;
+      text-anchor: middle;
+    }
+    .how-journey-svg .node-group.active .node-label {
+      fill: var(--gold-soft);
+    }
+    .how-journey-svg .traveler {
+      fill: var(--gold);
+      filter: drop-shadow(0 0 10px rgba(212,175,55,0.8));
+    }
+    .how-journey-svg .traveler-ring {
+      fill: none;
+      stroke: rgba(212,175,55,0.45);
+      stroke-width: 2;
+    }
+    .how-track {
+      display: flex;
+      flex: 1;
+      height: auto;
+      min-height: 0;
+      width: max-content;
+      will-change: transform;
+      align-items: center;
+      gap: 1.25rem;
+      /* Center first/last cards in viewport */
+      padding-left: max(1.5rem, calc(50vw - 240px));
+      padding-right: max(1.5rem, calc(50vw - 240px));
+    }
+    .how-panel {
+      width: min(480px, 82vw);
+      height: auto;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0.5rem 0 3.5rem;
+      flex-shrink: 0;
+    }
+    .how-card {
+      width: 100%;
+      padding: 1.5rem 1.35rem;
+      text-align: center;
+      position: relative;
+    }
+    .how-card-thumb {
+      width: 100%;
+      height: 110px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      border: 1px solid var(--glass-border);
+    }
+    .how-card-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .how-step-num {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      color: rgba(212,175,55,0.15);
+      line-height: 1;
+      position: absolute;
+      top: 1rem; right: 1.25rem;
+    }
+    .how-icon {
+      width: 64px; height: 64px;
+      margin: 0 auto 1.25rem;
+      border-radius: 16px;
+      background: var(--gold-dim);
+      border: 1px solid rgba(212,175,55,0.3);
+      display: grid; place-items: center;
+    }
+    .how-icon svg {
+      width: 28px; height: 28px;
+      stroke: var(--gold); fill: none; stroke-width: 1.5;
+    }
+    .how-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .how-card p {
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.7;
+    }
+    .how-progress {
+      position: absolute;
+      bottom: 1.75rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; gap: 0.5rem;
+      z-index: 5;
+    }
+    .how-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      transition: background 0.3s, width 0.3s;
+    }
+    .how-dot.active {
+      background: var(--gold);
+      width: 24px;
+      border-radius: 4px;
+    }
+    /* Mobile how-it-works overrides live in the MOBILE LAYOUT block below */
+
+    /* ============================================================
+       5. FEATURES GRID
+       ============================================================ */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .feature-card {
+      padding: 2rem 1.75rem;
+      transition: transform 0.4s var(--ease), border-color 0.3s, box-shadow 0.3s;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      will-change: transform;
+    }
+    .feature-card:hover {
+      border-color: rgba(212,175,55,0.35);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+    .fc-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: var(--gold-dim);
+      display: grid; place-items: center;
+      margin-bottom: 1.25rem;
+    }
+    .fc-icon svg { width: 24px; height: 24px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+    .feature-card h3 {
+      font-size: 1.15rem; font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    @media (max-width: 900px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ============================================================
+       6. ASSET CATEGORIES
+       ============================================================ */
+    .assets-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .asset-card {
+      position: relative;
+      aspect-ratio: 3/4;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+      cursor: pointer;
+      transform-style: preserve-3d;
+      perspective: 800px;
+    }
+    .asset-bg {
+      position: absolute; inset: 0;
+      transition: transform 0.6s var(--ease);
+      background-size: cover;
+      background-position: center;
+    }
+    .asset-card:hover .asset-bg { transform: scale(1.08); }
+    .asset-bg::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(6,20,40,0.15) 0%, rgba(6,20,40,0.55) 45%, rgba(6,20,40,0.96) 100%);
+    }
+    .asset-bg.prop { background-image: url("https://cdn.storebox.ai/media/49fbdd3d-a55c-45bc-bd16-46c5a404c34f/68bf72e1-25a0-457e-8d56-572eef151595/property.jpg"); }
+    .asset-bg.veh { background-image: url("https://cdn.storebox.ai/media/49fbdd3d-a55c-45bc-bd16-46c5a404c34f/ca90b553-86b5-422f-bb43-fe7cad4959ab/vehicle.jpg"); }
+    .asset-bg.mach { background-image: url("https://cdn.storebox.ai/media/49fbdd3d-a55c-45bc-bd16-46c5a404c34f/b66202f6-8825-49ef-99b9-7c96ea616b7d/machinery.jpg"); }
+    .asset-bg.gold { background-image: url("https://cdn.storebox.ai/media/49fbdd3d-a55c-45bc-bd16-46c5a404c34f/a1b9a1af-bb3d-4f21-b426-492bb5cdf763/gold.jpg"); }
+    .asset-pattern { display: none; }
+    .asset-icon-lg {
+      position: absolute; top: 28%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 56px; height: 56px;
+      opacity: 0.85;
+      z-index: 1;
+      background: rgba(6,20,40,0.45);
+      border: 1px solid rgba(212,175,55,0.35);
+      border-radius: 14px;
+      backdrop-filter: blur(8px);
+      display: grid; place-items: center;
+      padding: 12px;
+    }
+    .asset-icon-lg svg { width: 100%; height: 100%; stroke: var(--gold); fill: none; stroke-width: 1.4; }
+    .asset-content {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1.75rem;
+      z-index: 2;
+    }
+    .asset-content h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin-bottom: 0.4rem;
+    }
+    .asset-content p {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    @media (max-width: 900px) {
+      .assets-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ============================================================
+       7. LIVE AUCTION PREVIEW
+       ============================================================ */
+    .preview-wrap {
+      margin-top: 3rem;
+      position: relative;
+      perspective: 1200px;
+    }
+    .preview-bg-img {
+      position: absolute;
+      inset: -8% -4% auto;
+      height: 55%;
+      border-radius: 20px;
+      overflow: hidden;
+      opacity: 0.25;
+      z-index: 0;
+      mask-image: linear-gradient(180deg, #000 20%, transparent 100%);
+      -webkit-mask-image: linear-gradient(180deg, #000 20%, transparent 100%);
+    }
+    .preview-bg-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: saturate(0.7);
+    }
+    .dashboard-mock {
+      position: relative;
+      z-index: 1;
+      background: rgba(6, 20, 40, 0.92);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow:
+        0 40px 80px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(212,175,55,0.1);
+      transform: rotateX(4deg) rotateY(-2deg);
+      transform-origin: center top;
+    }
+    .dash-chrome {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.9rem 1.25rem;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .dash-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .dash-dot.r { background: #ff5f57; }
+    .dash-dot.y { background: #febc2e; }
+    .dash-dot.g { background: #28c840; }
+    .dash-title {
+      margin-left: 1rem;
+      font-size: 0.8rem;
+      color: var(--muted-2);
+    }
+    .dash-body { padding: 1.25rem; overflow-x: auto; }
+    .dash-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      min-width: 640px;
+    }
+    .dash-table th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .dash-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: var(--muted);
+    }
+    .dash-table tr:hover td { background: rgba(255,255,255,0.02); color: var(--white); }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .badge.live { background: rgba(46,204,113,0.15); color: var(--success); }
+    .badge.upcoming { background: rgba(52,152,219,0.15); color: var(--info); }
+    .badge.closed { background: rgba(255,255,255,0.08); color: var(--muted-2); }
+    .float-ui {
+      position: absolute;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-sm);
+      background: rgba(10, 31, 68, 0.95);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+      z-index: 3;
+      font-size: 0.8rem;
+    }
+    .float-ui.f1 { top: -1rem; right: -1rem; }
+    .float-ui.f2 { bottom: 2rem; left: -1.5rem; }
+    .float-ui .fu-label { color: var(--muted-2); font-size: 0.7rem; margin-bottom: 0.2rem; }
+    .float-ui .fu-val { font-weight: 600; color: var(--gold); font-size: 1.1rem; }
+    @media (max-width: 768px) {
+      .float-ui { display: none; }
+      .dashboard-mock { transform: none; }
+    }
+
+    /* ============================================================
+       8. STATS / IMPACT
+       ============================================================ */
+    .stats-section {
+      padding: 0;
+      background: radial-gradient(ellipse at center, rgba(212,175,55,0.1), transparent 60%);
+    }
+    .stats-pin {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: calc(var(--nav-h) + 2rem) 0 4rem;
+      box-sizing: border-box;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem 4rem;
+      width: min(900px, 92%);
+      margin-inline: auto;
+      text-align: center;
+    }
+    .stat-block .stat-num {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 10vw, 6.5rem);
+      line-height: 1;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .stat-block .stat-label {
+      font-size: 1rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    @media (max-width: 560px) {
+      .stats-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    /* ============================================================
+       9. TESTIMONIALS
+       ============================================================ */
+    .testimonials-wrap {
+      margin-top: 3rem;
+      overflow: hidden;
+    }
+    .testimonial-track {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 1.5rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold) transparent;
+      -webkit-overflow-scrolling: touch;
+    }
+    .testimonial-track::-webkit-scrollbar { height: 4px; }
+    .testimonial-track::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+    .testimonial-card {
+      flex: 0 0 min(400px, 85vw);
+      scroll-snap-align: start;
+      padding: 2rem;
+    }
+    .testimonial-card .quote {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-style: italic;
+      line-height: 1.5;
+      margin-bottom: 1.75rem;
+      color: rgba(255,255,255,0.9);
+    }
+    .testimonial-card .author {
+      display: flex; align-items: center; gap: 0.85rem;
+    }
+    .author-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy-light), var(--gold-dim));
+      border: 1px solid var(--glass-border);
+      display: grid; place-items: center;
+      font-weight: 700; font-size: 0.85rem;
+      color: var(--gold);
+    }
+    .author-info strong { display: block; font-size: 0.95rem; }
+    .author-info span { font-size: 0.8rem; color: var(--muted-2); }
+
+    /* ============================================================
+       10. COMPLIANCE
+       ============================================================ */
+    .compliance-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .badge-card {
+      text-align: center;
+      padding: 2.25rem 1.5rem;
+      transition: transform 0.35s var(--ease), border-color 0.3s;
+    }
+    .badge-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(212,175,55,0.4);
+    }
+    .badge-icon {
+      width: 64px; height: 64px;
+      margin: 0 auto 1.25rem;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      border: 1px solid rgba(212,175,55,0.35);
+      display: grid; place-items: center;
+    }
+    .badge-icon svg { width: 28px; height: 28px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+    .badge-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .badge-card p { font-size: 0.8rem; color: var(--muted); }
+    @media (max-width: 900px) {
+      .compliance-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ============================================================
+       11. CONTACT FORM
+       ============================================================ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 3rem;
+      margin-top: 3rem;
+      align-items: start;
+    }
+    .contact-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+    .contact-info p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+    .contact-detail {
+      display: flex; gap: 1rem; align-items: flex-start;
+      margin-bottom: 1.25rem;
+    }
+    .contact-detail .cd-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--gold-dim);
+      display: grid; place-items: center;
+      flex-shrink: 0;
+    }
+    .contact-detail .cd-icon svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+    .contact-detail strong { display: block; font-size: 0.85rem; margin-bottom: 0.15rem; }
+    .contact-detail span { font-size: 0.9rem; color: var(--muted); }
+    .form-card { padding: 2.25rem; }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted-2);
+      margin-bottom: 0.5rem;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.9rem 1.1rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      color: var(--white);
+      transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      background: rgba(212,175,55,0.05);
+      box-shadow: 0 0 0 3px rgba(212,175,55,0.12);
+    }
+    .form-group textarea { min-height: 120px; resize: vertical; }
+    .form-submit { width: 100%; margin-top: 0.5rem; padding: 1rem; }
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      color: var(--success);
+    }
+    .form-success.show { display: block; }
+    @media (max-width: 800px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       12. FOOTER
+       ============================================================ */
+    .footer {
+      position: relative;
+      z-index: 1;
+      padding: 4rem 0 2rem;
+      border-top: 1px solid var(--glass-border);
+      overflow: hidden;
+    }
+    .footer-pattern {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(212,175,55,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212,175,55,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      transform: translateY(0);
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    .footer-brand .nav-logo { margin-bottom: 1rem; }
+    .footer-brand p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 280px;
+      line-height: 1.65;
+    }
+    .footer-col h4 {
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--muted);
+      padding: 0.3rem 0;
+      transition: color 0.25s;
+    }
+    .footer-col a:hover { color: var(--white); }
+    .social-links { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
+    .social-links a {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-border);
+      display: grid; place-items: center;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .social-links a:hover {
+      border-color: var(--gold);
+      background: var(--gold-dim);
+    }
+    .social-links svg { width: 16px; height: 16px; fill: var(--muted); }
+    .social-links a:hover svg { fill: var(--gold); }
+    .footer-bottom {
+      position: relative;
+      padding-top: 2rem;
+      border-top: 1px solid var(--glass-border);
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between; gap: 1rem;
+      font-size: 0.8rem;
+      color: var(--muted-2);
+    }
+    @media (max-width: 800px) {
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .footer-top { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       MOBILE LAYOUT — dense cards + swipe rails (less vertical scroll)
+       ============================================================ */
+    @media (max-width: 768px) {
+      .section { padding: 2.5rem 0; }
+      .section-title { margin-bottom: 0.6rem; }
+      .section-sub { font-size: 0.92rem; }
+
+      /* Hero — shorter */
+      .hero {
+        min-height: auto;
+        padding-top: calc(var(--nav-h) + 0.25rem);
+      }
+      .hero-content { padding: 1.75rem 0 2rem; }
+      .hero-badge { margin-bottom: 1.1rem; }
+      .hero-title { margin-bottom: 0.85rem; }
+      .hero-sub { margin-bottom: 1.25rem; font-size: 0.92rem; }
+      .hero-counters {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        width: 100%;
+        margin-top: 1.5rem;
+        padding-top: 1.15rem;
+      }
+      .counter-item .num { font-size: 1.25rem; }
+      .counter-item .label { font-size: 0.62rem; line-height: 1.25; }
+
+      /* About — tight stack: copy → image → points (no empty pin gap) */
+      .about.section { padding: 2.25rem 0; }
+      .about-grid {
+        gap: 1rem;
+        min-height: 0 !important;
+      }
+      .about-visual {
+        aspect-ratio: 16 / 9;
+        max-height: 220px;
+      }
+      .about-photo { border-radius: 14px; }
+      .about-photo-caption { left: 0.85rem; right: 0.85rem; bottom: 0.75rem; }
+      .feature-points { gap: 0.5rem; margin-top: 0.25rem; }
+      .feature-point {
+        padding: 0.7rem 0.8rem;
+        opacity: 1 !important;
+        transform: none !important;
+        visibility: visible !important;
+      }
+      .feature-point .fp-num { font-size: 1.05rem; }
+      .feature-point h4 { font-size: 0.88rem; }
+      .feature-point p {
+        font-size: 0.74rem;
+        line-height: 1.35;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      /* How — handled in ≤1023 block below as well */
+
+      /* Features — compact 2-col tiles */
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.65rem;
+        margin-top: 1.35rem;
+      }
+      .feature-card {
+        padding: 0.95rem 0.85rem;
+        border-radius: 12px;
+      }
+      .fc-icon {
+        width: 36px; height: 36px;
+        border-radius: 9px;
+        margin-bottom: 0.65rem;
+      }
+      .fc-icon svg { width: 18px; height: 18px; }
+      .feature-card h3 { font-size: 0.88rem; margin-bottom: 0.3rem; line-height: 1.3; }
+      .feature-card p {
+        font-size: 0.72rem;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      /* Assets — compact 2×2 */
+      .assets-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.65rem;
+        margin-top: 1.35rem;
+      }
+      .asset-card {
+        aspect-ratio: 1 / 1;
+        border-radius: 12px;
+      }
+      .asset-icon-lg {
+        width: 40px; height: 40px;
+        top: 22%;
+        padding: 8px;
+        border-radius: 10px;
+      }
+      .asset-content { padding: 0.85rem; }
+      .asset-content h3 { font-size: 1rem; margin-bottom: 0.15rem; }
+      .asset-content p {
+        font-size: 0.68rem;
+        line-height: 1.3;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      /* Preview */
+      .preview-wrap { margin-top: 1.35rem; }
+      .dash-body { padding: 0.65rem; }
+      .dash-table { font-size: 0.72rem; min-width: 520px; }
+      .dash-table th, .dash-table td { padding: 0.55rem 0.65rem; }
+
+      /* Stats — no full-screen pin */
+      .stats-pin {
+        min-height: 0;
+        padding: 2.5rem 0;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.35rem 1rem;
+      }
+      .stat-block .stat-num { font-size: clamp(2.1rem, 11vw, 3rem); }
+      .stat-block .stat-label { font-size: 0.78rem; }
+
+      /* Testimonials rail */
+      .testimonials-wrap { margin-top: 1.35rem; }
+      .testimonial-card {
+        flex: 0 0 min(280px, 84vw);
+        padding: 1.15rem;
+        border-radius: 12px;
+      }
+      .testimonial-card .quote { font-size: 1rem; margin-bottom: 0.9rem; }
+
+      /* Compliance — compact 2×2 */
+      .compliance-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.65rem;
+        margin-top: 1.35rem;
+      }
+      .badge-card { padding: 1rem 0.75rem; border-radius: 12px; }
+      .badge-icon { width: 44px; height: 44px; margin-bottom: 0.65rem; }
+      .badge-icon svg { width: 20px; height: 20px; }
+      .badge-card h3 { font-size: 0.82rem; }
+      .badge-card p {
+        font-size: 0.68rem;
+        line-height: 1.35;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      /* Contact / footer */
+      .contact-grid { margin-top: 1.35rem; gap: 1.35rem; }
+      .form-card { padding: 1.25rem; }
+      .footer { padding: 2.25rem 0 1.25rem; }
+      .footer-top { margin-bottom: 1.35rem; gap: 1.25rem; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+
+      /* Swipe hint for rails */
+      .m-rail-hint {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        font-size: 0.68rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted-2);
+        margin: 0.35rem 0 0.15rem;
+      }
+      .m-rail-hint::before,
+      .m-rail-hint::after {
+        content: "";
+        width: 18px; height: 1px;
+        background: rgba(255,255,255,0.15);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .m-rail-hint,
+      .how-rail-hint { display: none !important; }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .logo-track { animation: none; }
+      .bg-float, .bg-svg-spin, .bg-svg-spin-rev { animation: none !important; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient background: gradients + SVG figures + particles -->
+  <div class="bg-atmosphere" aria-hidden="true">
+    <div class="bg-float f1"></div>
+    <div class="bg-float f2"></div>
+    <div class="bg-float f3"></div>
+
+    <svg class="bg-svg-layer" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <!-- Soft grid -->
+      <g class="grid" opacity="0.9">
+        <line class="grid-line" x1="0" y1="150" x2="1440" y2="150" />
+        <line class="grid-line" x1="0" y1="300" x2="1440" y2="300" />
+        <line class="grid-line" x1="0" y1="450" x2="1440" y2="450" />
+        <line class="grid-line" x1="0" y1="600" x2="1440" y2="600" />
+        <line class="grid-line" x1="0" y1="750" x2="1440" y2="750" />
+        <line class="grid-line" x1="240" y1="0" x2="240" y2="900" />
+        <line class="grid-line" x1="480" y1="0" x2="480" y2="900" />
+        <line class="grid-line" x1="720" y1="0" x2="720" y2="900" />
+        <line class="grid-line" x1="960" y1="0" x2="960" y2="900" />
+        <line class="grid-line" x1="1200" y1="0" x2="1200" y2="900" />
+      </g>
+
+      <!-- Large orbital rings (top-right) -->
+      <g class="bg-svg-spin" transform="translate(1180 160)">
+        <circle class="glow-ring" r="140" />
+        <circle class="orbit" r="90" />
+        <circle class="orbit-dashed" r="120" />
+        <circle class="orbit" r="55" />
+        <circle class="node" cx="90" cy="0" r="3.5" />
+        <circle class="node" cx="-64" cy="64" r="2.5" />
+        <circle class="node" cx="0" cy="-55" r="2" />
+      </g>
+
+      <!-- Hex cluster (bottom-left) -->
+      <g class="bg-svg-spin-rev" transform="translate(180 720)">
+        <polygon class="hex" points="0,-48 42,-24 42,24 0,48 -42,24 -42,-24" />
+        <polygon class="hex" points="0,-28 24,-14 24,14 0,28 -24,14 -24,-14" />
+        <circle class="node" r="3" />
+        <circle class="orbit-dashed" r="70" />
+      </g>
+
+      <!-- Abstract network (mid-left) -->
+      <g opacity="0.8" transform="translate(80 280)">
+        <circle class="orbit" r="100" />
+        <circle class="orbit-dashed" r="140" />
+        <line class="orbit" x1="-70" y1="-40" x2="60" y2="30" />
+        <line class="orbit" x1="40" y1="-70" x2="-30" y2="80" />
+        <line class="orbit" x1="-90" y1="20" x2="90" y2="-10" />
+        <circle class="node" cx="-70" cy="-40" r="4" />
+        <circle class="node" cx="60" cy="30" r="3" />
+        <circle class="node" cx="40" cy="-70" r="3.5" />
+        <circle class="node" cx="-30" cy="80" r="2.5" />
+      </g>
+
+      <!-- Diagonal accent arcs (bottom-right) -->
+      <g transform="translate(1100 680)">
+        <path class="orbit" d="M -160 40 Q -40 -80 120 20" />
+        <path class="orbit-dashed" d="M -140 70 Q 0 -40 150 50" />
+        <circle class="node" cx="-160" cy="40" r="3" />
+        <circle class="node" cx="120" cy="20" r="3" />
+        <circle class="node" cx="20" cy="-35" r="2" />
+      </g>
+
+      <!-- Small floating diamond marks -->
+      <g fill="none" stroke="rgba(212,175,55,0.15)" stroke-width="1.2">
+        <path d="M 420 120 l 8 8 l -8 8 l -8 -8 z" />
+        <path d="M 980 520 l 6 6 l -6 6 l -6 -6 z" />
+        <path d="M 640 780 l 7 7 l -7 7 l -7 -7 z" />
+        <path d="M 200 480 l 5 5 l -5 5 l -5 -5 z" />
+      </g>
+    </svg>
+
+    <canvas id="bg-particles"></canvas>
+  </div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-follower" id="cursorFollower" aria-hidden="true"></div>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scrollProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Page scroll progress"></div>
+
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-logo">Digital <span>Auction</span></div>
+    <div class="preloader-bar-wrap"><div class="preloader-bar" id="preloaderBar"></div></div>
+    <div class="preloader-pct" id="preloaderPct">0%</div>
+  </div>
+
+  <!-- ========== NAVBAR ========== -->
+  <header class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo" data-magnetic>
+        <div class="mark">DA</div>
+        Digital <span>Auction</span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#how">How It Works</a>
+        <a href="#features">Features</a>
+        <a href="#assets">Assets</a>
+        <a href="#preview">Live Auctions</a>
+        <a href="#contact" class="btn btn-primary nav-cta" data-magnetic>Request Demo</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ========== 1. HERO ========== -->
+    <section class="hero" id="hero">
+      <div class="hero-photo" aria-hidden="true"></div>
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-gradient"></div>
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          SARFAESI-Compliant · Trusted by Banks &amp; NBFCs
+        </div>
+        <h1 class="hero-title" id="heroTitle">
+          <span class="line"><span class="line-inner">India's Trusted</span></span>
+          <span class="line"><span class="line-inner">e-Auction Platform</span></span>
+          <span class="line"><span class="line-inner">for Banks &amp; Financial</span></span>
+          <span class="line"><span class="line-inner">Institutions</span></span>
+        </h1>
+        <p class="hero-sub" id="heroSub">
+          Secure, transparent, and fully digital auctions for Non-Performing Assets —
+          immovable property, vehicles, machinery, and secured assets — built for banks,
+          NBFCs, and finance companies under the SARFAESI Act.
+        </p>
+        <div class="btn-group" id="heroCtas">
+          <a href="#contact" class="btn btn-primary" data-magnetic>Request a Demo</a>
+          <a href="#preview" class="btn btn-ghost" data-magnetic>View Live Auctions</a>
+        </div>
+        <div class="hero-counters" id="heroCounters">
+          <div class="counter-item">
+            <div class="num" data-count="500" data-suffix="+">0</div>
+            <div class="label">Auctions Hosted</div>
+          </div>
+          <div class="counter-item">
+            <div class="num" data-count="1200" data-prefix="₹" data-suffix=" Cr+">0</div>
+            <div class="label">Assets Listed</div>
+          </div>
+          <div class="counter-item">
+            <div class="num" data-count="50" data-suffix="+">0</div>
+            <div class="label">Financial Partners</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 2. TRUST BAR ========== -->
+    <section class="trust-bar" id="trust">
+      <p class="trust-label">Trusted by Leading Banks &amp; NBFCs Across India</p>
+      <div class="logo-marquee">
+        <div class="logo-track" id="logoTrack">
+          <!-- Duplicated set for seamless loop — populated via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 3. ABOUT / WHY ========== -->
+    <section class="section about" id="about">
+      <div class="container about-pin-wrap" id="aboutPin">
+        <div class="about-grid">
+          <div class="about-intro">
+            <div class="section-label reveal">Why Digital Auction</div>
+            <h2 class="section-title reveal">Built for finance.<br /><em>Engineered for trust.</em></h2>
+            <p class="section-sub reveal">
+              Digital Auction Private Limited delivers an end-to-end e-auction platform purpose-built
+              for recovery of NPAs — aligning technology with regulatory compliance so institutions
+              can auction assets with confidence.
+            </p>
+          </div>
+          <div class="about-visual" id="aboutVisual">
+            <div class="about-photo">
+              <img src="https://cdn.storebox.ai/media/49fbdd3d-a55c-45bc-bd16-46c5a404c34f/e7bdd763-97b8-4ff7-a758-951c7ec81be9/about-team.jpg" alt="Banking and finance professionals collaborating on digital auctions" width="520" height="650" loading="lazy" />
+              <div class="about-photo-caption">
+                <strong>Built for institutions</strong>
+                <span>Secure NPA recovery · SARFAESI-aligned</span>
+              </div>
+            </div>
+            <div class="about-icon-float i1">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="about-icon-float i2">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            </div>
+            <div class="about-icon-float i3">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div class="about-icon-float i4">
+              <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+          </div>
+          <div class="feature-points" id="featurePoints">
+            <div class="feature-point active" data-fp="0">
+              <span class="fp-num">01</span>
+              <div>
+                <h4>Regulatory Alignment</h4>
+                <p>Workflows designed around SARFAESI timelines, notices, and settlement norms.</p>
+              </div>
+            </div>
+            <div class="feature-point" data-fp="1">
+              <span class="fp-num">02</span>
+              <div>
+                <h4>Bank-Grade Security</h4>
+                <p>Encrypted bidding, audit trails, and role-based access for every institution.</p>
+              </div>
+            </div>
+            <div class="feature-point" data-fp="2">
+              <span class="fp-num">03</span>
+              <div>
+                <h4>Transparent Discovery</h4>
+                <p>Real-time bid visibility and documented processes that stand up to scrutiny.</p>
+              </div>
+            </div>
+            <div class="feature-point" data-fp="3">
+              <span class="fp-num">04</span>
+              <div>
+                <h4>Multi-Institution Ready</h4>
+                <p>Dedicated dashboards for banks, NBFCs, and co-lending partners.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 4. HOW IT WORKS ========== -->
+    <section class="how-section" id="how">
+      <div class="how-header">
+        <div class="section-label reveal">Process</div>
+        <h2 class="section-title reveal">How it <em>works</em></h2>
+        <p class="section-sub reveal">A clear, compliant path from registration to settlement — designed for institutional recovery teams and qualified bidders.</p>
+      </div>
+      <p class="how-rail-hint m-rail-hint" aria-hidden="true">Swipe for steps →</p>
+      <div class="how-pin" id="howPin">
+        <!-- Scroll-driven SVG journey map -->
+        <div class="how-svg-stage" aria-hidden="true">
+          <svg class="how-journey-svg" id="howJourneySvg" viewBox="0 0 1000 160" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#d4af37" />
+                <stop offset="50%" stop-color="#e8c96a" />
+                <stop offset="100%" stop-color="#d4af37" />
+              </linearGradient>
+              <filter id="glowSoft" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3" result="b" />
+                <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+            </defs>
+            <!-- Soft connector track -->
+            <path class="path-track" id="journeyTrack"
+              d="M 80 90 C 160 90, 180 40, 260 40 S 360 140, 440 140 S 540 40, 620 40 S 720 140, 800 140 S 880 90, 920 90" />
+            <!-- Animated gold draw path (same geometry) -->
+            <path class="path-draw" id="journeyPath"
+              d="M 80 90 C 160 90, 180 40, 260 40 S 360 140, 440 140 S 540 40, 620 40 S 720 140, 800 140 S 880 90, 920 90" />
+
+            <!-- Node 1: Register -->
+            <g class="node-group active" data-node="0" transform="translate(80,90)">
+              <circle class="node-ring" r="28" />
+              <g class="node-icon" transform="translate(-10,-10) scale(0.85)">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M19 8v6M22 11h-6" />
+              </g>
+              <text class="node-label" y="48">Register</text>
+            </g>
+            <!-- Node 2: KYC -->
+            <g class="node-group" data-node="1" transform="translate(260,40)">
+              <circle class="node-ring" r="28" />
+              <g class="node-icon" transform="translate(-10,-10) scale(0.85)">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                <path d="M9 12l2 2 4-4" />
+              </g>
+              <text class="node-label" y="48">KYC</text>
+            </g>
+            <!-- Node 3: EMD -->
+            <g class="node-group" data-node="2" transform="translate(440,140)">
+              <circle class="node-ring" r="28" />
+              <g class="node-icon" transform="translate(-10,-10) scale(0.85)">
+                <rect x="2" y="5" width="20" height="14" rx="2" />
+                <path d="M2 10h20" />
+              </g>
+              <text class="node-label" y="-40">EMD</text>
+            </g>
+            <!-- Node 4: Bid -->
+            <g class="node-group" data-node="3" transform="translate(620,40)">
+              <circle class="node-ring" r="28" />
+              <g class="node-icon" transform="translate(-10,-10) scale(0.85)">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.4 1.4M17.66 17.66l1.4 1.4M2 12h2M20 12h2M4.93 19.07l1.4-1.4M17.66 6.34l1.4-1.4" />
+              </g>
+              <text class="node-label" y="48">Bid Online</text>
+            </g>
+            <!-- Node 5: Settlement -->
+            <g class="node-group" data-node="4" transform="translate(800,140)">
+              <circle class="node-ring" r="28" />
+              <g class="node-icon" transform="translate(-10,-10) scale(0.85)">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                <path d="M22 4L12 14.01l-3-3" />
+              </g>
+              <text class="node-label" y="-40">Settlement</text>
+            </g>
+
+            <!-- Traveler that moves along the path -->
+            <g id="journeyTraveler" filter="url(#glowSoft)">
+              <circle class="traveler-ring" r="12" />
+              <circle class="traveler" r="6" />
+            </g>
+          </svg>
+        </div>
+
+        <div class="how-track" id="howTrack">
+          <div class="how-panel">
+            <div class="how-card glass">
+              <span class="how-step-num">01</span>
+              <div class="how-card-thumb"><img src="https://cdn.storebox.ai/media/49fbdd3d-a55c-45bc-bd16-46c5a404c34f/70dbc26d-0b2a-476d-ad9a-27ba8a4dc260/meeting.jpg" alt="" loading="lazy" /></div>
+              <div class="how-icon">
+                <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+              </div>
+              <h3>Register</h3>
+              <p>Institutions onboard via dedicated portals. Bidders create verified profiles with organization credentials and contact details.</p>
+            </div>
+          </div>
+          <div class="how-panel">
+            <div class="how-card glass">
+              <span class="how-step-num">02</span>
+              <div class="how-card-thumb"><img src="https://cdn.storebox.ai/media/49fbdd3d-a55c-45bc-bd16-46c5a404c34f/446c85ea-e458-480b-8d8d-00629295e063/security.jpg" alt="" loading="lazy" /></div>
+              <div class="how-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+              </div>
+              <h3>KYC Verification</h3>
+              <p>Mandatory KYC checks for bidders — PAN, Aadhaar, and entity documents — ensuring only eligible participants enter the auction room.</p>
+            </div>
+          </div>
+          <div class="how-panel">
+            <div class="how-card glass">
+              <span class="how-step-num">03</span>
+              <div class="how-card-thumb"><img src="https://cdn.storebox.ai/media/49fbdd3d-a55c-45bc-bd16-46c5a404c34f/4044a77f-ddae-43ae-ade6-8a01fb5ff380/finance.jpg" alt="" loading="lazy" /></div>
+              <div class="how-icon">
+                <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+              </div>
+              <h3>EMD Payment</h3>
+              <p>Earnest Money Deposit is collected digitally against the listed asset, with automated receipts and bank-reconciled ledgers.</p>
+            </div>
+          </div>
+          <div class="how-panel">
+            <div class="how-card glass">
+              <span class="how-step-num">04</span>
+              <div class="how-card-thumb"><img src="https://cdn.storebox.ai/media/49fbdd3d-a55c-45bc-bd16-46c5a404c34f/91cdb229-2a57-441f-be06-41502aba5801/dashboard.jpg" alt="" loading="lazy" /></div>
+              <div class="how-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg>
+              </div>
+              <h3>Bid Online</h3>
+              <p>Live bidding with real-time increments, auto-extensions, and full audit logging — accessible on desktop and mobile.</p>
+            </div>
+          </div>
+          <div class="how-panel">
+            <div class="how-card glass">
+              <span class="how-step-num">05</span>
+              <div class="how-card-thumb"><img src="https://cdn.storebox.ai/media/49fbdd3d-a55c-45bc-bd16-46c5a404c34f/68bf72e1-25a0-457e-8d56-572eef151595/property.jpg" alt="" loading="lazy" /></div>
+              <div class="how-icon">
+                <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+              </div>
+              <h3>Win &amp; Settlement</h3>
+              <p>Successful bidders receive confirmation; institutions manage sale confirmation, balance payment, and asset handover workflows.</p>
+            </div>
+          </div>
+        </div>
+        <div class="how-progress" id="howProgress" aria-hidden="true">
+          <span class="how-dot active"></span>
+          <span class="how-dot"></span>
+          <span class="how-dot"></span>
+          <span class="how-dot"></span>
+          <span class="how-dot"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 5. KEY FEATURES ========== -->
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-label reveal">Platform Capabilities</div>
+        <h2 class="section-title reveal">Everything institutions<br />need to <em>auction with confidence</em></h2>
+        <p class="section-sub reveal">Enterprise-grade tools for secure bidding, document control, and multi-bank operations.</p>
+        <div class="features-grid" id="featuresGrid" data-animate-cards>
+          <article class="feature-card glass" data-tilt>
+            <div class="fc-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+            <h3>Secure Bidding Engine</h3>
+            <p>Encrypted bids, sealed increments, and tamper-evident logs protect every auction event from open to close.</p>
+          </article>
+          <article class="feature-card glass" data-tilt>
+            <div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+            <h3>Real-Time Bid Tracking</h3>
+            <p>Live leaderboards and status updates keep recovery teams and bidders synchronized throughout the auction window.</p>
+          </article>
+          <article class="feature-card glass" data-tilt>
+            <div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
+            <h3>Document Vault</h3>
+            <p>Centralized storage for sale notices, title docs, valuation reports, and bidder KYC — access-controlled per role.</p>
+          </article>
+          <article class="feature-card glass" data-tilt>
+            <div class="fc-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+            <h3>Multi-Bank Dashboard</h3>
+            <p>Unified control panel for branches and partner NBFCs to publish assets, monitor EMDs, and export reports.</p>
+          </article>
+          <article class="feature-card glass" data-tilt>
+            <div class="fc-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
+            <h3>Mobile Responsive Bidding</h3>
+            <p>Qualified bidders can participate from any device without compromising security or auction integrity.</p>
+          </article>
+          <article class="feature-card glass" data-tilt>
+            <div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+            <h3>Automated Notifications</h3>
+            <p>SMS and email alerts for auction reminders, bid updates, EMD status, and settlement milestones.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 6. ASSET CATEGORIES ========== -->
+    <section class="section" id="assets">
+      <div class="container">
+        <div class="section-label reveal">Asset Classes</div>
+        <h2 class="section-title reveal">Auction any <em>secured asset</em></h2>
+        <p class="section-sub reveal">From residential property to industrial machinery — one platform for diversified NPA portfolios.</p>
+        <div class="assets-grid" id="assetsGrid" data-animate-cards>
+          <article class="asset-card" data-tilt data-parallax>
+            <div class="asset-bg prop"><div class="asset-pattern"></div></div>
+            <div class="asset-icon-lg"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
+            <div class="asset-content">
+              <h3>Immovable Property</h3>
+              <p>Residential, commercial &amp; industrial real estate under SARFAESI sale.</p>
+            </div>
+          </article>
+          <article class="asset-card" data-tilt data-parallax>
+            <div class="asset-bg veh"><div class="asset-pattern"></div></div>
+            <div class="asset-icon-lg"><svg viewBox="0 0 24 24"><path d="M5 17h14v-5H5z"/><path d="M5 12l2-5h10l2 5"/><circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/></svg></div>
+            <div class="asset-content">
+              <h3>Vehicles</h3>
+              <p>Cars, commercial fleets, two-wheelers &amp; heavy transport assets.</p>
+            </div>
+          </article>
+          <article class="asset-card" data-tilt data-parallax>
+            <div class="asset-bg mach"><div class="asset-pattern"></div></div>
+            <div class="asset-icon-lg"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div>
+            <div class="asset-content">
+              <h3>Machinery &amp; Equipment</h3>
+              <p>Plant &amp; machinery, industrial tools, and production line assets.</p>
+            </div>
+          </article>
+          <article class="asset-card" data-tilt data-parallax>
+            <div class="asset-bg gold"><div class="asset-pattern"></div></div>
+            <div class="asset-icon-lg"><svg viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M2 9h20"/></svg></div>
+            <div class="asset-content">
+              <h3>Gold / Jewellery</h3>
+              <p>Secured gold loans and jewellery portfolios with verified valuation.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 7. LIVE AUCTION PREVIEW ========== -->
+    <section class="section" id="preview">
+      <div class="container">
+        <div class="section-label reveal">Product Preview</div>
+        <h2 class="section-title reveal">See the platform <em>in action</em></h2>
+        <p class="section-sub reveal">A realistic glimpse of the auction operations dashboard used by bank recovery teams.</p>
+        <div class="preview-wrap" id="previewWrap">
+          <div class="preview-bg-img" aria-hidden="true">
+            <img src="https://cdn.storebox.ai/media/49fbdd3d-a55c-45bc-bd16-46c5a404c34f/91cdb229-2a57-441f-be06-41502aba5801/dashboard.jpg" alt="" loading="lazy" />
+          </div>
+          <div class="float-ui f1 glass" id="floatUi1">
+            <div class="fu-label">Active Bids</div>
+            <div class="fu-val">1,248</div>
+          </div>
+          <div class="float-ui f2 glass" id="floatUi2">
+            <div class="fu-label">Next Closing</div>
+            <div class="fu-val">02h 14m</div>
+          </div>
+          <div class="dashboard-mock" id="dashMock">
+            <div class="dash-chrome">
+              <span class="dash-dot r"></span>
+              <span class="dash-dot y"></span>
+              <span class="dash-dot g"></span>
+              <span class="dash-title">Digital Auction — Operations Console</span>
+            </div>
+            <div class="dash-body">
+              <table class="dash-table">
+                <thead>
+                  <tr>
+                    <th>Auction ID</th>
+                    <th>Asset Type</th>
+                    <th>Reserve Price</th>
+                    <th>EMD</th>
+                    <th>Auction Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>DA-2026-0841</td>
+                    <td>Residential Flat, Jabalpur</td>
+                    <td>₹48.5 Lakh</td>
+                    <td>₹4.85 Lakh</td>
+                    <td>22 Oct 2026</td>
+                    <td><span class="badge live">● Live</span></td>
+                  </tr>
+                  <tr>
+                    <td>DA-2026-0837</td>
+                    <td>Commercial Vehicle Fleet</td>
+                    <td>₹12.2 Lakh</td>
+                    <td>₹1.22 Lakh</td>
+                    <td>24 Oct 2026</td>
+                    <td><span class="badge upcoming">Upcoming</span></td>
+                  </tr>
+                  <tr>
+                    <td>DA-2026-0829</td>
+                    <td>Industrial Machinery</td>
+                    <td>₹2.8 Cr</td>
+                    <td>₹28 Lakh</td>
+                    <td>18 Oct 2026</td>
+                    <td><span class="badge closed">Closed</span></td>
+                  </tr>
+                  <tr>
+                    <td>DA-2026-0815</td>
+                    <td>Gold Loan Portfolio</td>
+                    <td>₹65 Lakh</td>
+                    <td>₹6.5 Lakh</td>
+                    <td>28 Oct 2026</td>
+                    <td><span class="badge upcoming">Upcoming</span></td>
+                  </tr>
+                  <tr>
+                    <td>DA-2026-0802</td>
+                    <td>Commercial Plot, Indore</td>
+                    <td>₹1.45 Cr</td>
+                    <td>₹14.5 Lakh</td>
+                    <td>15 Oct 2026</td>
+                    <td><span class="badge closed">Closed</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 8. STATS / IMPACT ========== -->
+    <section class="stats-section" id="stats">
+      <div class="stats-pin" id="statsPin">
+        <div class="stats-grid">
+          <div class="stat-block">
+            <div class="stat-num" data-stat="99.8" data-suffix="%">0</div>
+            <div class="stat-label">Process Transparency</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num" data-stat="7" data-suffix=" Days">0</div>
+            <div class="stat-label">Avg. Settlement Time</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num" data-stat="18" data-suffix="+">0</div>
+            <div class="stat-label">States Covered</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num" data-stat="8500" data-suffix="+">0</div>
+            <div class="stat-label">Registered Bidders</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 9. TESTIMONIALS ========== -->
+    <section class="section" id="testimonials">
+      <div class="container">
+        <div class="section-label reveal">Client Voices</div>
+        <h2 class="section-title reveal">What partners <em>say</em></h2>
+        <p class="section-sub reveal">Placeholder testimonials representing the experience we aim to deliver for institutional clients.</p>
+        <div class="testimonials-wrap">
+          <div class="testimonial-track" id="testimonialTrack">
+            <article class="testimonial-card glass">
+              <p class="quote">"Digital Auction gave our recovery team a transparent, audit-ready process for NPA sales. Settlement timelines improved markedly."</p>
+              <div class="author">
+                <div class="author-avatar">RK</div>
+                <div class="author-info">
+                  <strong>Rajesh Kumar</strong>
+                  <span>Chief Recovery Officer · Regional Bank</span>
+                </div>
+              </div>
+            </article>
+            <article class="testimonial-card glass">
+              <p class="quote">"The multi-branch dashboard and automated notifications reduced coordination overhead across our NBFC network."</p>
+              <div class="author">
+                <div class="author-avatar">PS</div>
+                <div class="author-info">
+                  <strong>Priya Sharma</strong>
+                  <span>VP Operations · Mid-size NBFC</span>
+                </div>
+              </div>
+            </article>
+            <article class="testimonial-card glass">
+              <p class="quote">"SARFAESI-aligned workflows and document vault gave our legal team confidence from notice to confirmation of sale."</p>
+              <div class="author">
+                <div class="author-avatar">AM</div>
+                <div class="author-info">
+                  <strong>Amit Mehta</strong>
+                  <span>Legal Head · Finance Company</span>
+                </div>
+              </div>
+            </article>
+            <article class="testimonial-card glass">
+              <p class="quote">"Mobile bidding expanded participation without compromising KYC or EMD controls. A practical platform for provincial markets."</p>
+              <div class="author">
+                <div class="author-avatar">SV</div>
+                <div class="author-info">
+                  <strong>Sneha Verma</strong>
+                  <span>Branch Manager · Cooperative Bank</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 10. COMPLIANCE ========== -->
+    <section class="section" id="compliance">
+      <div class="container">
+        <div class="section-label reveal">Trust &amp; Compliance</div>
+        <h2 class="section-title reveal">Security you can <em>present to the board</em></h2>
+        <p class="section-sub reveal">Controls and standards aligned with institutional expectations for data protection and regulatory process.</p>
+        <div class="compliance-grid" id="complianceGrid" data-animate-cards>
+          <div class="badge-card glass">
+            <div class="badge-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <h3>SARFAESI Aligned</h3>
+            <p>Auction flows mapped to statutory sale processes for secured assets.</p>
+          </div>
+          <div class="badge-card glass">
+            <div class="badge-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+            <h3>ISO-Ready Practices</h3>
+            <p>Process discipline inspired by ISO information security frameworks.</p>
+          </div>
+          <div class="badge-card glass">
+            <div class="badge-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+            <h3>Data Security</h3>
+            <p>Encrypted transit &amp; storage, role-based access, and full audit trails.</p>
+          </div>
+          <div class="badge-card glass">
+            <div class="badge-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
+            <h3>Audit Documentation</h3>
+            <p>Exportable logs and notices suitable for internal and regulatory review.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 11. CONTACT ========== -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-label reveal">Get in Touch</div>
+        <h2 class="section-title reveal">Request a <em>demo</em></h2>
+        <p class="section-sub reveal">Tell us about your institution — we'll schedule a walkthrough of the platform tailored to your recovery workflows.</p>
+        <div class="contact-grid">
+          <div class="contact-info">
+            <h3>Digital Auction Private Limited</h3>
+            <p>India's e-auction partner for banks, NBFCs, and finance companies — headquartered in Jabalpur, Madhya Pradesh.</p>
+            <div class="contact-detail">
+              <div class="cd-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+              <div>
+                <strong>Address</strong>
+                <span>Jabalpur, Madhya Pradesh, India</span>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="cd-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></div>
+              <div>
+                <strong>Email</strong>
+                <span>hello@digitalauction.in</span>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="cd-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+              <div>
+                <strong>Phone</strong>
+                <span>+91 · Request via form</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-card glass">
+            <form id="demoForm" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" id="name" name="name" required placeholder="Your full name" autocomplete="name" />
+                </div>
+                <div class="form-group">
+                  <label for="org">Organization</label>
+                  <input type="text" id="org" name="org" required placeholder="Bank / NBFC / Finance Co." autocomplete="organization" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" required placeholder="you@institution.in" autocomplete="email" />
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone</label>
+                  <input type="tel" id="phone" name="phone" required placeholder="+91 XXXXX XXXXX" autocomplete="tel" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Tell us about your auction / recovery requirements…"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary form-submit" data-magnetic id="submitBtn">
+                Submit Demo Request
+              </button>
+            </form>
+            <div class="form-success" id="formSuccess" role="status">
+              ✓ Thank you. Our team will contact you shortly.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== 12. FOOTER ========== -->
+  <footer class="footer" id="footer">
+    <div class="footer-pattern" id="footerPattern" aria-hidden="true"></div>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#hero" class="nav-logo">
+            <div class="mark">DA</div>
+            Digital <span>Auction</span>
+          </a>
+          <p>Secure, transparent e-auctions for Banks, NBFCs &amp; Financial Institutions. SARFAESI-aligned NPA recovery platform.</p>
+          <div class="social-links">
+            <a href="#" aria-label="LinkedIn" data-magnetic>
+              <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></svg>
+            </a>
+            <a href="#" aria-label="Twitter / X" data-magnetic>
+              <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.727-8.829L1.25 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+            </a>
+            <a href="#" aria-label="Email" data-magnetic>
+              <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <a href="#how">How It Works</a>
+          <a href="#features">Features</a>
+          <a href="#assets">Asset Categories</a>
+          <a href="#preview">Live Auctions</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#about">About Us</a>
+          <a href="#compliance">Compliance</a>
+          <a href="#testimonials">Testimonials</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Bidder Guidelines</a>
+          <a href="#">Institutional T&amp;Cs</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> Digital Auction Private Limited. All rights reserved.</span>
+        <span>Jabalpur, Madhya Pradesh, India</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ============================================================
+       DIGITAL AUCTION — Application Script
+       GSAP + ScrollTrigger · Lenis · Canvas particles · Interactions
+       ============================================================ */
+    (function () {
+      "use strict";
+
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const isTouch = matchMedia("(hover: none), (pointer: coarse)").matches;
+
+      /* ---------- Year ---------- */
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      /* ---------- Trust logos ---------- */
+      const partners = [
+        "State Bank Group", "HDFC Bank", "ICICI Bank", "Axis Bank",
+        "PNB", "Bank of Baroda", "Canara Bank", "Union Bank",
+        "Bajaj Finance", "Mahindra Finance", "L&T Finance", "SBI Cards"
+      ];
+      const track = document.getElementById("logoTrack");
+      const logoHTML = partners.map((name) => {
+        const initials = name.split(" ").map((w) => w[0]).join("").slice(0, 2);
+        return `<div class="logo-item"><span class="logo-icon">${initials}</span>${name}</div>`;
+      }).join("");
+      track.innerHTML = logoHTML + logoHTML; // duplicate for seamless marquee
+
+      /* ---------- Preloader ---------- */
+      const preloader = document.getElementById("preloader");
+      const preloaderBar = document.getElementById("preloaderBar");
+      const preloaderPct = document.getElementById("preloaderPct");
+
+      function runPreloader() {
+        return new Promise((resolve) => {
+          if (reducedMotion) {
+            preloader.style.display = "none";
+            resolve();
+            return;
+          }
+          let progress = 0;
+          const tick = () => {
+            progress += Math.random() * 12 + 4;
+            if (progress >= 100) progress = 100;
+            preloaderBar.style.width = progress + "%";
+            preloaderPct.textContent = Math.floor(progress) + "%";
+            if (progress < 100) {
+              requestAnimationFrame(() => setTimeout(tick, 40));
+            } else {
+              if (typeof gsap !== "undefined") {
+                gsap.to(preloader, {
+                  yPercent: -100,
+                  duration: 0.9,
+                  ease: "power4.inOut",
+                  delay: 0.15,
+                  onComplete: () => {
+                    preloader.style.display = "none";
+                    resolve();
+                  }
+                });
+              } else {
+                preloader.style.display = "none";
+                resolve();
+              }
+            }
+          };
+          tick();
+        });
+      }
+
+      /* ---------- Custom Cursor ---------- */
+      const cursor = document.getElementById("cursor");
+      const follower = document.getElementById("cursorFollower");
+      let mx = 0, my = 0, fx = 0, fy = 0;
+
+      if (!isTouch) {
+        document.addEventListener("mousemove", (e) => {
+          mx = e.clientX;
+          my = e.clientY;
+          cursor.style.left = mx + "px";
+          cursor.style.top = my + "px";
+        });
+        (function followLoop() {
+          fx += (mx - fx) * 0.15;
+          fy += (my - fy) * 0.15;
+          follower.style.left = fx + "px";
+          follower.style.top = fy + "px";
+          requestAnimationFrame(followLoop);
+        })();
+        document.querySelectorAll("a, button, .feature-card, .asset-card, .btn").forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            cursor.classList.add("hover");
+            follower.classList.add("hover");
+          });
+          el.addEventListener("mouseleave", () => {
+            cursor.classList.remove("hover");
+            follower.classList.remove("hover");
+          });
+        });
+      }
+
+      /* ---------- Magnetic Buttons ---------- */
+      function initMagnetic() {
+        if (isTouch || reducedMotion) return;
+        document.querySelectorAll("[data-magnetic]").forEach((btn) => {
+          btn.addEventListener("mousemove", (e) => {
+            const r = btn.getBoundingClientRect();
+            const x = e.clientX - r.left - r.width / 2;
+            const y = e.clientY - r.top - r.height / 2;
+            if (typeof gsap !== "undefined") {
+              gsap.to(btn, { x: x * 0.25, y: y * 0.25, duration: 0.35, ease: "power2.out" });
+            }
+          });
+          btn.addEventListener("mouseleave", () => {
+            if (typeof gsap !== "undefined") {
+              gsap.to(btn, { x: 0, y: 0, duration: 0.55, ease: "elastic.out(1, 0.4)" });
+            }
+          });
+        });
+      }
+
+      /* ---------- 3D Tilt Cards ---------- */
+      function initTilt() {
+        if (isTouch || reducedMotion) return;
+        document.querySelectorAll("[data-tilt]").forEach((card) => {
+          card.addEventListener("mousemove", (e) => {
+            const r = card.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width;
+            const y = (e.clientY - r.top) / r.height;
+            const rotY = (x - 0.5) * 12;
+            const rotX = (0.5 - y) * 12;
+            card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02,1.02,1.02)`;
+          });
+          card.addEventListener("mouseleave", () => {
+            card.style.transform = "";
+          });
+        });
+      }
+
+      /* ---------- Page-wide ambient particles ---------- */
+      function initBgParticles() {
+        const canvas = document.getElementById("bg-particles");
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        let w, h, particles, raf;
+
+        function resize() {
+          w = canvas.width = window.innerWidth;
+          h = canvas.height = window.innerHeight;
+        }
+
+        function create() {
+          const count = Math.min(isTouch ? 28 : 55, Math.floor((w * h) / 22000));
+          particles = Array.from({ length: count }, () => ({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            r: Math.random() * 1.6 + 0.3,
+            vx: (Math.random() - 0.5) * 0.22,
+            vy: (Math.random() - 0.5) * 0.22,
+            a: Math.random() * 0.4 + 0.12,
+            gold: Math.random() > 0.55
+          }));
+        }
+
+        function draw() {
+          ctx.clearRect(0, 0, w, h);
+          for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < 0 || p.x > w) p.vx *= -1;
+            if (p.y < 0 || p.y > h) p.vy *= -1;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = p.gold
+              ? `rgba(212, 175, 55, ${p.a})`
+              : `rgba(160, 190, 230, ${p.a * 0.55})`;
+            ctx.fill();
+
+            for (let j = i + 1; j < particles.length; j++) {
+              const q = particles[j];
+              const dx = p.x - q.x;
+              const dy = p.y - q.y;
+              const dist = Math.hypot(dx, dy);
+              if (dist < 110) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(q.x, q.y);
+                ctx.strokeStyle = `rgba(212, 175, 55, ${0.08 * (1 - dist / 110)})`;
+                ctx.stroke();
+              }
+            }
+          }
+          raf = requestAnimationFrame(draw);
+        }
+
+        resize();
+        create();
+        if (reducedMotion) {
+          draw();
+          cancelAnimationFrame(raf);
+        } else {
+          draw();
+        }
+        window.addEventListener("resize", () => {
+          resize();
+          create();
+        });
+      }
+
+      /* ---------- Hero Particle Canvas ---------- */
+      function initHeroCanvas() {
+        const canvas = document.getElementById("hero-canvas");
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        let w, h, particles, raf;
+
+        function resize() {
+          w = canvas.width = canvas.offsetWidth;
+          h = canvas.height = canvas.offsetHeight;
+        }
+
+        function createParticles() {
+          const count = Math.min(80, Math.floor((w * h) / 18000));
+          particles = Array.from({ length: count }, () => ({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            r: Math.random() * 1.8 + 0.4,
+            vx: (Math.random() - 0.5) * 0.35,
+            vy: (Math.random() - 0.5) * 0.35,
+            a: Math.random() * 0.5 + 0.15
+          }));
+        }
+
+        function draw() {
+          ctx.clearRect(0, 0, w, h);
+          for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < 0 || p.x > w) p.vx *= -1;
+            if (p.y < 0 || p.y > h) p.vy *= -1;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(212, 175, 55, ${p.a})`;
+            ctx.fill();
+
+            for (let j = i + 1; j < particles.length; j++) {
+              const q = particles[j];
+              const dx = p.x - q.x;
+              const dy = p.y - q.y;
+              const dist = Math.hypot(dx, dy);
+              if (dist < 120) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(q.x, q.y);
+                ctx.strokeStyle = `rgba(212, 175, 55, ${0.12 * (1 - dist / 120)})`;
+                ctx.stroke();
+              }
+            }
+          }
+          raf = requestAnimationFrame(draw);
+        }
+
+        resize();
+        createParticles();
+        if (!reducedMotion) draw();
+        else {
+          // static single frame
+          draw();
+          cancelAnimationFrame(raf);
+        }
+        window.addEventListener("resize", () => {
+          resize();
+          createParticles();
+        });
+      }
+
+      /* ---------- Navbar ---------- */
+      const navbar = document.getElementById("navbar");
+      const navToggle = document.getElementById("navToggle");
+      const navLinks = document.getElementById("navLinks");
+
+      navToggle.addEventListener("click", () => {
+        const open = navLinks.classList.toggle("open");
+        navToggle.classList.toggle("open", open);
+        navToggle.setAttribute("aria-expanded", open);
+      });
+      navLinks.querySelectorAll("a").forEach((a) => {
+        a.addEventListener("click", () => {
+          navLinks.classList.remove("open");
+          navToggle.classList.remove("open");
+          navToggle.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      /* ---------- Scroll Progress ---------- */
+      const progressBar = document.getElementById("scrollProgress");
+
+      /* ---------- IntersectionObserver Fallback for .reveal ---------- */
+      function initRevealFallback() {
+        const els = document.querySelectorAll(".reveal");
+        if (!("IntersectionObserver" in window)) {
+          els.forEach((el) => el.classList.add("is-visible"));
+          return;
+        }
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+        );
+        els.forEach((el) => io.observe(el));
+      }
+
+      /* ---------- Form ---------- */
+      const form = document.getElementById("demoForm");
+      const formSuccess = document.getElementById("formSuccess");
+      const submitBtn = document.getElementById("submitBtn");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+        submitBtn.textContent = "Sending…";
+        submitBtn.disabled = true;
+        setTimeout(() => {
+          form.style.display = "none";
+          formSuccess.classList.add("show");
+          if (typeof gsap !== "undefined") {
+            gsap.from(formSuccess, { scale: 0.9, opacity: 0, duration: 0.5, ease: "back.out(1.7)" });
+          }
+        }, 800);
+      });
+
+      /* ---------- Counter helper ---------- */
+      function animateCounter(el, target, duration, prefix, suffix, decimals) {
+        const start = performance.now();
+        const from = 0;
+        function frame(now) {
+          const t = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - t, 3);
+          const val = from + (target - from) * eased;
+          el.textContent = (prefix || "") + (decimals ? val.toFixed(decimals) : Math.floor(val).toLocaleString("en-IN")) + (suffix || "");
+          if (t < 1) requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+      }
+
+      /* ============================================================
+         GSAP + ScrollTrigger + Lenis
+         ============================================================ */
+      async function initApp() {
+        await runPreloader();
+        initBgParticles();
+        initHeroCanvas();
+        initMagnetic();
+        initTilt();
+        initRevealFallback();
+
+        if (typeof gsap === "undefined") {
+          // Fallback: animate hero counters without GSAP
+          document.querySelectorAll("#heroCounters .num").forEach((el) => {
+            animateCounter(
+              el,
+              parseFloat(el.dataset.count),
+              1800,
+              el.dataset.prefix || "",
+              el.dataset.suffix || "",
+              0
+            );
+          });
+          return;
+        }
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        /* Lenis — desktop only */
+        let lenis = null;
+        if (!reducedMotion && !isTouch && window.innerWidth >= 1024 && typeof Lenis !== "undefined") {
+          lenis = new Lenis({
+            duration: 1.15,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true
+          });
+          lenis.on("scroll", ScrollTrigger.update);
+          gsap.ticker.add((time) => lenis.raf(time * 1000));
+          gsap.ticker.lagSmoothing(0);
+        }
+
+        ScrollTrigger.create({
+          start: 0,
+          end: "max",
+          onUpdate: (self) => {
+            progressBar.style.width = self.progress * 100 + "%";
+            progressBar.setAttribute("aria-valuenow", Math.round(self.progress * 100));
+            navbar.classList.toggle("scrolled", self.scroll() > 60);
+          }
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", (e) => {
+            const id = anchor.getAttribute("href");
+            if (id.length < 2) return;
+            const target = document.querySelector(id);
+            if (!target) return;
+            e.preventDefault();
+            if (lenis) lenis.scrollTo(target, { offset: -20 });
+            else target.scrollIntoView({ behavior: "smooth" });
+          });
+        });
+
+        /* Hero entrance (all viewports) */
+        if (!reducedMotion) {
+          const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+          heroTl
+            .from(".hero-badge", { y: 24, opacity: 0, duration: 0.55 })
+            .from(".hero-title .line-inner", { yPercent: 110, duration: 0.85, stagger: 0.08 }, "-=0.25")
+            .from("#heroSub", { y: 20, opacity: 0, duration: 0.55 }, "-=0.4")
+            .from("#heroCtas .btn", { y: 16, opacity: 0, duration: 0.4, stagger: 0.08 }, "-=0.3")
+            .from("#heroCounters .counter-item", { y: 20, opacity: 0, duration: 0.45, stagger: 0.08 }, "-=0.25");
+        }
+
+        document.querySelectorAll("#heroCounters .num").forEach((el) => {
+          const target = parseFloat(el.dataset.count);
+          const obj = { val: 0 };
+          gsap.to(obj, {
+            val: target,
+            duration: 1.6,
+            delay: 0.9,
+            ease: "power2.out",
+            onUpdate: () => {
+              el.textContent =
+                (el.dataset.prefix || "") +
+                Math.floor(obj.val).toLocaleString("en-IN") +
+                (el.dataset.suffix || "");
+            }
+          });
+        });
+
+        /* Shared: heading reveals */
+        gsap.utils.toArray(".section-title.reveal, .section-label.reveal, .section-sub.reveal").forEach((el) => {
+          gsap.fromTo(
+            el,
+            { y: 28, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.65,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 90%",
+                markers: false,
+                onEnter: () => el.classList.add("is-visible")
+              }
+            }
+          );
+        });
+
+        gsap.from(".trust-bar", {
+          opacity: 0,
+          y: 28,
+          duration: 0.7,
+          scrollTrigger: { trigger: ".trust-bar", start: "top 92%", markers: false }
+        });
+
+        /* Journey SVG helpers */
+        const howTrack = document.getElementById("howTrack");
+        const howPin = document.getElementById("howPin");
+        const howDots = gsap.utils.toArray("#howProgress .how-dot");
+        const panels = gsap.utils.toArray(".how-panel");
+        const journeyPath = document.getElementById("journeyPath");
+        const traveler = document.getElementById("journeyTraveler");
+        const nodeGroups = gsap.utils.toArray(".how-journey-svg .node-group");
+        const points = gsap.utils.toArray(".feature-point");
+        const statBlocks = gsap.utils.toArray(".stat-block .stat-num");
+
+        function setupJourneySVG() {
+          if (!journeyPath) return null;
+          const pathLen = journeyPath.getTotalLength();
+          journeyPath.style.strokeDasharray = String(pathLen);
+          journeyPath.style.strokeDashoffset = String(pathLen);
+          if (traveler) {
+            const start = journeyPath.getPointAtLength(0);
+            traveler.setAttribute("transform", `translate(${start.x}, ${start.y})`);
+          }
+          return pathLen;
+        }
+
+        function updateJourney(progress, pathLen) {
+          if (!journeyPath || !pathLen) return;
+          const drawn = pathLen * progress;
+          journeyPath.style.strokeDashoffset = String(pathLen - drawn);
+          if (traveler) {
+            const pt = journeyPath.getPointAtLength(Math.min(pathLen, Math.max(0, drawn)));
+            traveler.setAttribute("transform", `translate(${pt.x}, ${pt.y})`);
+          }
+          const idx = Math.min(nodeGroups.length - 1, Math.floor(progress * nodeGroups.length + 0.001));
+          nodeGroups.forEach((g, i) => {
+            g.classList.toggle("active", i <= idx);
+            const ring = g.querySelector(".node-ring");
+            if (ring) ring.classList.toggle("active", i <= idx);
+          });
+        }
+
+        const pathLen = setupJourneySVG();
+
+        function animateStatCount(el, delay) {
+          const target = parseFloat(el.dataset.stat);
+          const suffix = el.dataset.suffix || "";
+          const decimals = String(el.dataset.stat).includes(".") ? 1 : 0;
+          const obj = { val: 0 };
+          gsap.to(obj, {
+            val: target,
+            duration: 1.15,
+            delay: delay || 0,
+            ease: "power2.out",
+            onUpdate: () => {
+              el.textContent =
+                (decimals ? obj.val.toFixed(1) : Math.floor(obj.val).toLocaleString("en-IN")) + suffix;
+            }
+          });
+        }
+
+        /* Pin only on large desktops — tablets/phones get no extra scroll gap */
+        const mm = gsap.matchMedia();
+
+        mm.add("(min-width: 1024px)", () => {
+          gsap.fromTo(
+            "#aboutVisual",
+            { x: 60, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              duration: 0.9,
+              ease: "power3.out",
+              scrollTrigger: { trigger: "#about", start: "top 70%", markers: false }
+            }
+          );
+
+          if (points.length && !reducedMotion) {
+            points.forEach((p, i) => p.classList.toggle("active", i === 0));
+            ScrollTrigger.create({
+              trigger: "#aboutPin",
+              start: "top top+=72",
+              end: "+=120%",
+              pin: true,
+              scrub: 0.6,
+              markers: false,
+              onUpdate: (self) => {
+                const idx = Math.min(points.length - 1, Math.floor(self.progress * points.length));
+                points.forEach((p, i) => p.classList.toggle("active", i <= idx));
+              }
+            });
+          }
+
+          if (!reducedMotion) {
+            gsap.utils.toArray(".about-icon-float").forEach((icon, i) => {
+              gsap.to(icon, {
+                y: i % 2 === 0 ? -12 : 12,
+                duration: 2.5 + i * 0.3,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+              });
+            });
+          }
+
+          if (howTrack && panels.length && !reducedMotion) {
+            const getScrollX = () => Math.max(howTrack.scrollWidth - window.innerWidth, 1);
+            const getPinDistance = () => Math.max(getScrollX() * 0.55, window.innerHeight * 1.15);
+            gsap.to(howTrack, {
+              x: () => -getScrollX(),
+              ease: "none",
+              scrollTrigger: {
+                trigger: howPin,
+                /* Pin below fixed navbar so SVG isn't covered */
+                start: "top top",
+                end: () => "+=" + getPinDistance(),
+                scrub: 0.45,
+                pin: true,
+                pinSpacing: true,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+                markers: false,
+                onUpdate: (self) => {
+                  const idx = Math.round(self.progress * (panels.length - 1));
+                  howDots.forEach((d, i) => d.classList.toggle("active", i === idx));
+                  updateJourney(self.progress, pathLen);
+                  panels.forEach((panel, i) => {
+                    const card = panel.querySelector(".how-card");
+                    if (!card) return;
+                    gsap.to(card, {
+                      scale: i === idx ? 1 : 0.94,
+                      opacity: i === idx ? 1 : 0.45,
+                      duration: 0.3,
+                      overwrite: "auto"
+                    });
+                  });
+                }
+              }
+            });
+            updateJourney(0, pathLen);
+          }
+
+          ScrollTrigger.batch("#featuresGrid .feature-card", {
+            start: "top 85%",
+            markers: false,
+            onEnter: (batch) =>
+              gsap.from(batch, {
+                y: 50,
+                opacity: 0,
+                scale: 0.94,
+                duration: 0.65,
+                stagger: 0.08,
+                ease: "power3.out",
+                overwrite: true
+              })
+          });
+
+          gsap.utils.toArray("[data-parallax]").forEach((card) => {
+            const bg = card.querySelector(".asset-bg");
+            gsap.from(card, {
+              y: 40,
+              opacity: 0,
+              duration: 0.7,
+              scrollTrigger: { trigger: card, start: "top 88%", markers: false }
+            });
+            if (bg && !reducedMotion) {
+              gsap.to(bg, {
+                yPercent: 12,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: card,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: true,
+                  markers: false
+                }
+              });
+            }
+          });
+
+          gsap.from("#dashMock", {
+            y: 60,
+            opacity: 0,
+            duration: 0.9,
+            ease: "power3.out",
+            scrollTrigger: { trigger: "#previewWrap", start: "top 75%", markers: false }
+          });
+          gsap.from(["#floatUi1", "#floatUi2"], {
+            scale: 0.7,
+            opacity: 0,
+            duration: 0.7,
+            stagger: 0.12,
+            ease: "back.out(1.5)",
+            scrollTrigger: { trigger: "#previewWrap", start: "top 75%", markers: false }
+          });
+
+          if (statBlocks.length && !reducedMotion) {
+            const statsTl = gsap.timeline({
+              scrollTrigger: {
+                trigger: "#statsPin",
+                start: "top top",
+                end: "+=120%",
+                scrub: 0.8,
+                pin: true,
+                markers: false
+              }
+            });
+            /* stats-pin already has vertical centering; add nav clearance via CSS */
+            statBlocks.forEach((el, i) => {
+              const target = parseFloat(el.dataset.stat);
+              const suffix = el.dataset.suffix || "";
+              const decimals = String(el.dataset.stat).includes(".") ? 1 : 0;
+              const obj = { val: 0 };
+              statsTl.to(
+                obj,
+                {
+                  val: target,
+                  duration: 1,
+                  ease: "none",
+                  onUpdate: () => {
+                    el.textContent =
+                      (decimals ? obj.val.toFixed(1) : Math.floor(obj.val).toLocaleString("en-IN")) + suffix;
+                  }
+                },
+                i * 0.12
+              );
+            });
+          }
+
+          gsap.from("#testimonialTrack .testimonial-card", {
+            x: 40,
+            opacity: 0,
+            duration: 0.65,
+            stagger: 0.1,
+            scrollTrigger: { trigger: "#testimonials", start: "top 75%", markers: false }
+          });
+          gsap.from("#complianceGrid .badge-card", {
+            scale: 0.8,
+            opacity: 0,
+            duration: 0.55,
+            stagger: 0.08,
+            ease: "back.out(1.4)",
+            scrollTrigger: { trigger: "#complianceGrid", start: "top 82%", markers: false }
+          });
+          gsap.from(".contact-info, .form-card", {
+            y: 30,
+            opacity: 0,
+            duration: 0.65,
+            stagger: 0.12,
+            scrollTrigger: { trigger: "#contact", start: "top 78%", markers: false }
+          });
+        });
+
+        /* ---------- TABLET + MOBILE (≤1023) — no pins, always-visible cards ---------- */
+        mm.add("(max-width: 1023px)", () => {
+          /* Always show points — never leave them at opacity 0 */
+          points.forEach((p) => {
+            p.classList.add("active");
+            gsap.set(p, { clearProps: "opacity,transform,visibility" });
+          });
+          gsap.set("#aboutVisual", { clearProps: "opacity,transform" });
+
+          gsap.fromTo(
+            "#aboutVisual",
+            { y: 28, opacity: 0.4 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.55,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: "#aboutVisual",
+                start: "top 92%",
+                once: true,
+                markers: false
+              }
+            }
+          );
+
+          gsap.fromTo(
+            ".feature-point",
+            { y: 18, opacity: 0.4 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.4,
+              stagger: 0.06,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: "#featurePoints",
+                start: "top 92%",
+                once: true,
+                markers: false
+              },
+              onComplete: () => gsap.set(".feature-point", { clearProps: "opacity,transform" })
+            }
+          );
+
+          const howCards = gsap.utils.toArray(".how-card");
+          gsap.fromTo(
+            howCards,
+            { y: 16, opacity: 0.5 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.4,
+              stagger: 0.05,
+              ease: "power2.out",
+              scrollTrigger: { trigger: "#how", start: "top 85%", once: true, markers: false }
+            }
+          );
+
+          if (howTrack && howCards.length) {
+            const highlightHow = () => {
+              const mid = howTrack.scrollLeft + howTrack.clientWidth * 0.35;
+              howCards.forEach((card) => {
+                const panel = card.closest(".how-panel");
+                if (!panel) return;
+                const left = panel.offsetLeft;
+                const right = left + panel.offsetWidth;
+                const active = mid >= left && mid < right;
+                gsap.to(card, {
+                  opacity: active ? 1 : 0.55,
+                  scale: active ? 1 : 0.96,
+                  duration: 0.2,
+                  overwrite: "auto"
+                });
+              });
+            };
+            howTrack.addEventListener("scroll", highlightHow, { passive: true });
+            highlightHow();
+          }
+
+          ScrollTrigger.batch(
+            "#featuresGrid .feature-card, #assetsGrid .asset-card, #complianceGrid .badge-card",
+            {
+              start: "top 94%",
+              once: true,
+              markers: false,
+              onEnter: (batch) =>
+                gsap.fromTo(
+                  batch,
+                  { y: 22, opacity: 0.35, scale: 0.94 },
+                  {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.4,
+                    stagger: 0.05,
+                    ease: "power3.out",
+                    overwrite: true,
+                    clearProps: "transform"
+                  }
+                )
+            }
+          );
+
+          gsap.fromTo(
+            "#dashMock",
+            { y: 28, opacity: 0.4 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.55,
+              ease: "power2.out",
+              scrollTrigger: { trigger: "#previewWrap", start: "top 88%", once: true, markers: false }
+            }
+          );
+
+          ScrollTrigger.create({
+            trigger: "#statsPin",
+            start: "top 85%",
+            once: true,
+            markers: false,
+            onEnter: () => {
+              gsap.fromTo(
+                ".stat-block",
+                { y: 18, opacity: 0.4 },
+                { y: 0, opacity: 1, duration: 0.4, stagger: 0.07, ease: "power2.out" }
+              );
+              statBlocks.forEach((el, i) => animateStatCount(el, i * 0.08));
+            }
+          });
+
+          gsap.fromTo(
+            "#testimonialTrack .testimonial-card",
+            { x: 24, opacity: 0.4 },
+            {
+              x: 0,
+              opacity: 1,
+              duration: 0.4,
+              stagger: 0.06,
+              ease: "power2.out",
+              scrollTrigger: { trigger: "#testimonials", start: "top 88%", once: true, markers: false }
+            }
+          );
+
+          gsap.fromTo(
+            ".contact-info, .form-card",
+            { y: 20, opacity: 0.4 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.45,
+              stagger: 0.08,
+              scrollTrigger: { trigger: "#contact", start: "top 90%", once: true, markers: false }
+            }
+          );
+        });
+
+        window.addEventListener("load", () => ScrollTrigger.refresh());
+        setTimeout(() => ScrollTrigger.refresh(), 400);
+      }
+
+      // Boot
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initApp);
+      } else {
+        initApp();
+      }
+    })();
+  </script>
+</body>
+</html>

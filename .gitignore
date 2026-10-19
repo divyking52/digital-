@@ -1,0 +1,8 @@
+.DS_Store
+Thumbs.db
+*.log
+.vercel
+.env
+.env.*
+media-response.json
+node_modules/
